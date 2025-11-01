@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { auth } from '../../../services/firebase';
 
 const apiClient = axios.create({
   baseURL: process.env.REACT_APP_API_URL || 'http://localhost:3001/api',
@@ -7,6 +8,19 @@ const apiClient = axios.create({
     'Content-Type': 'application/json',
   },
 });
+
+// Add Firebase auth token to requests
+apiClient.interceptors.request.use(
+  async (config) => {
+    const user = auth.currentUser;
+    if (user) {
+      const token = await user.getIdToken();
+      config.headers.Authorization = `Bearer ${token}`;
+    }
+    return config;
+  },
+  (error) => Promise.reject(error)
+);
 
 apiClient.interceptors.response.use(
   (response) => response,
