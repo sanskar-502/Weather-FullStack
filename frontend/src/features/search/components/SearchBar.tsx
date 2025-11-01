@@ -7,7 +7,11 @@ import { addRecent } from '../../recents/recentsSlice';
 import debounce from 'lodash/debounce';
 import './SearchBar.css';
 
-export const SearchBar = memo(() => {
+interface SearchBarProps {
+  showToast: (message: string, type?: 'success' | 'error' | 'info') => void;
+}
+
+export const SearchBar = memo(({ showToast }: SearchBarProps) => {
   const dispatch = useAppDispatch();
   const { query, results, status } = useSelector((state: RootState) => state.search as SearchState);
   const [inputValue, setInputValue] = useState(query);
@@ -60,7 +64,10 @@ export const SearchBar = memo(() => {
     const id = (item as any).id || `${item.name}-${item.lat}-${item.lon}`;
     dispatch(addRecent({ id, name: item.name, lat: item.lat, lon: item.lon } as any));
     dispatch(clearSearch());
-  }, [dispatch]);
+    
+    const cityName = item.country ? `${item.name}, ${item.country}` : item.name;
+    showToast(`${cityName} added to recent searches`, 'success');
+  }, [dispatch, showToast]);
 
   return (
     <div className="search-container" ref={wrapperRef}>

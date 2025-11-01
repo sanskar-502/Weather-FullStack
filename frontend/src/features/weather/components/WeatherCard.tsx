@@ -8,9 +8,10 @@ import { fetchCurrentWeather } from '../weatherSlice';
 
 type WeatherCardProps = BaseWeatherCardProps & {
   onOpen?: (payload: { cityId: string; name: string; lat: number; lon: number }) => void;
+  showToast?: (message: string, type?: 'success' | 'error' | 'info') => void;
 };
 
-const WeatherCardComponent: React.FC<WeatherCardProps> = ({ cityId, name, lat, lon, onOpen }) => {
+const WeatherCardComponent: React.FC<WeatherCardProps> = ({ cityId, name, lat, lon, onOpen, showToast }) => {
   const dispatch = useAppDispatch();
   const units = useAppSelector((state: RootState) => state.preferences?.units ?? 'metric');
 
@@ -31,6 +32,14 @@ const WeatherCardComponent: React.FC<WeatherCardProps> = ({ cityId, name, lat, l
     }
   }, [dispatch, lat, lon, units, weather]);
 
+  useEffect(() => {
+    const intervalId = setInterval(() => {
+      dispatch(fetchCurrentWeather({ lat, lon, units }));
+    }, 60000); // 60 seconds
+
+    return () => clearInterval(intervalId);
+  }, [dispatch, lat, lon, units]);
+
   const handleFavoriteClick = useCallback((e?: React.MouseEvent) => {
     e?.stopPropagation();
     if (isFavorite) {
@@ -39,6 +48,7 @@ const WeatherCardComponent: React.FC<WeatherCardProps> = ({ cityId, name, lat, l
         const { syncFavoriteRemove } = m as any;
         dispatch(syncFavoriteRemove(cityId) as any);
       });
+      showToast?.(`${name} removed from favorites`, 'info');
     } else {
       const fav = { id: cityId, name, lat, lon };
       dispatch(addFavorite(fav));
@@ -46,8 +56,9 @@ const WeatherCardComponent: React.FC<WeatherCardProps> = ({ cityId, name, lat, l
         const { syncFavoriteAdd } = m as any;
         dispatch(syncFavoriteAdd(fav) as any);
       });
+      showToast?.(`${name} added to favorites`, 'success');
     }
-  }, [dispatch, isFavorite, cityId, name, lat, lon]);
+  }, [dispatch, isFavorite, cityId, name, lat, lon, showToast]);
 
   // Show skeleton while loading and no data yet
   if (!weather && status === 'loading') {
@@ -69,6 +80,9 @@ const WeatherCardComponent: React.FC<WeatherCardProps> = ({ cityId, name, lat, l
     return <div className="weather-card">No data</div>;
   }
 
+  const weatherIcon = weather.current?.weather?.[0]?.icon ?? weather.weather?.[0]?.icon ?? '01d';
+  const weatherDescription = weather.current?.weather?.[0]?.description ?? weather.weather?.[0]?.description ?? 'Unknown';
+
   return (
     <div className="weather-card" onClick={() => onOpen?.({ cityId, name, lat, lon })} role="button" tabIndex={0}>
       <div className="weather-card-header">
@@ -82,12 +96,19 @@ const WeatherCardComponent: React.FC<WeatherCardProps> = ({ cityId, name, lat, l
         </button>
       </div>
       <div className="weather-card-body">
-        <div className="temperature">
-          <span className="value">{Math.round(weather.current?.temp ?? weather.main?.temp ?? 0)}</span>
-          <span className="unit">°{units === 'metric' ? 'C' : 'F'}</span>
+        <div className="weather-main">
+          <img
+            src={`http://openweathermap.org/img/wn/${weatherIcon}@2x.png`}
+            alt={weatherDescription}
+            className="weather-icon"
+          />
+          <div className="temperature">
+            <span className="value">{Math.round(weather.current?.temp ?? weather.main?.temp ?? 0)}</span>
+            <span className="unit">°{units === 'metric' ? 'C' : 'F'}</span>
+          </div>
         </div>
         <div className="weather-condition">
-          {weather.current?.weather?.[0]?.description ?? weather.weather?.[0]?.description ?? 'Unknown'}
+          {weatherDescription}
         </div>
         <div className="weather-details">
           <div>Humidity: {weather.current?.humidity ?? weather.main?.humidity ?? 0}%</div>

@@ -9,7 +9,6 @@ const apiClient = axios.create({
   },
 });
 
-// Add Firebase auth token to requests
 apiClient.interceptors.request.use(
   async (config) => {
     const user = auth.currentUser;

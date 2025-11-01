@@ -76,14 +76,11 @@ export const weatherService: WeatherService = {
           params: { lat, lon, units }
         });
   
-        // Backend may wrap data as { key, data }
         const payload = response.data;
         const data: WeatherData = payload && payload.data ? payload.data : payload;
   
-        // Cache the successful response
         weatherCacheService.setCurrentWeather(lat, lon, units, data);
   
-        // Log successful request
         const duration = Date.now() - startTime;
         console.debug(`Weather request successful (${duration}ms):`, {
           endpoint: '/weather/current',
@@ -98,7 +95,7 @@ export const weatherService: WeatherService = {
           params: { lat, lon, units },
           startTime
         });
-        throw err; // Re-throw after logging
+        throw err;
       } finally {
         inflight.delete(inflightKey);
       }
@@ -112,7 +109,6 @@ export const weatherService: WeatherService = {
     const startTime = Date.now();
     requestMetrics.totalAttempts++;
 
-    // Try to get from cache first
     const cachedData = await Promise.resolve(weatherCacheService.getForecast(lat, lon, units));
     if (cachedData) {
       console.debug('Forecast data retrieved from cache:', {
@@ -133,14 +129,11 @@ export const weatherService: WeatherService = {
           params: { lat, lon, units }
         });
   
-        // Backend may wrap data as { key, data }
         const payload = response.data;
         const data: WeatherData[] = payload && payload.data ? payload.data : payload;
   
-        // Cache the successful response
         weatherCacheService.setForecast(lat, lon, units, data);
   
-        // Log successful request
         const duration = Date.now() - startTime;
         console.debug(`Weather forecast request successful (${duration}ms):`, {
           endpoint: '/weather/forecast',
@@ -155,7 +148,7 @@ export const weatherService: WeatherService = {
           params: { lat, lon, units },
           startTime
         });
-        throw err; // Re-throw after logging
+        throw err;
       } finally {
         inflight.delete(inflightKey);
       }

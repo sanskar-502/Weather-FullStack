@@ -7,8 +7,7 @@ import {
   CartesianGrid,
   Tooltip,
   ResponsiveContainer,
-  Legend,
-  Brush
+  Legend
 } from 'recharts';
 import { format } from 'date-fns';
 
@@ -25,19 +24,34 @@ interface PrecipitationData {
 
 interface PrecipitationChartProps {
   data: PrecipitationData[];
+  timeRange?: number; // Time range in hours
 }
 
-export const PrecipitationChart: React.FC<PrecipitationChartProps> = ({ data }) => {
-  const formattedData = data.map(item => ({
+export const PrecipitationChart: React.FC<PrecipitationChartProps> = ({ data, timeRange = 24 }) => {
+  const now = Date.now() / 1000;
+  const timeRangeSeconds = timeRange * 60 * 60;
+  const targetTime = now + timeRangeSeconds;
+  
+  const filteredData = data.filter(item => item.dt >= now && item.dt <= targetTime);
+  
+  const formattedData = filteredData.map(item => ({
     time: format(new Date(item.dt * 1000), 'HH:mm'),
     rain: item.rain?.['1h'] || 0,
     snow: item.snow?.['1h'] || 0,
     pop: item.pop * 100 // Convert to percentage
   }));
 
+  const getTitle = () => {
+    if (timeRange === 6) return 'Precipitation - Last 6 Hours';
+    if (timeRange === 12) return 'Precipitation - Last 12 Hours';
+    if (timeRange === 24) return 'Precipitation - Next 24 Hours';
+    if (timeRange === 48) return 'Precipitation - Next 48 Hours';
+    return `Precipitation - Next ${timeRange} Hours`;
+  };
+
   return (
     <div className="chart-container">
-      <h3>Precipitation Forecast</h3>
+      <h3>{getTitle()}</h3>
       <ResponsiveContainer width="100%" height={300}>
         <BarChart data={formattedData} margin={{ top: 5, right: 30, left: 20, bottom: 5 }}>
           <CartesianGrid strokeDasharray="3 3" />
@@ -49,7 +63,6 @@ export const PrecipitationChart: React.FC<PrecipitationChartProps> = ({ data }) 
           <Bar dataKey="rain" fill="#4299e1" yAxisId="left" name="Rain" />
           <Bar dataKey="snow" fill="#a0aec0" yAxisId="left" name="Snow" />
           <Bar dataKey="pop" fill="#805ad5" yAxisId="right" name="Probability" />
-          <Brush dataKey="time" height={20} stroke="#4299e1" travellerWidth={10} />
         </BarChart>
       </ResponsiveContainer>
     </div>

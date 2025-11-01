@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { RootState } from '../../../store/store';
 import { useAppDispatch, useAppSelector } from '../../../store/hooks';
 import { fetchCurrentWeather, fetchForecast } from '../weatherSlice';
@@ -7,7 +7,9 @@ import { useWeatherData } from '../hooks/useWeatherData';
 import { TemperatureChart } from './charts/TemperatureChart';
 import { PrecipitationChart } from './charts/PrecipitationChart';
 import { WindChart } from './charts/WindChart';
+import { DailyTemperatureChart } from './charts/DailyTemperatureChart';
 import { DailyForecast } from './DailyForecast';
+import { HourlyForecast } from './HourlyForecast';
 
 interface WeatherDetailProps {
   cityId: string;
@@ -26,6 +28,9 @@ export const WeatherDetail: React.FC<WeatherDetailProps> = ({
   const units = useAppSelector((state: RootState) => state.preferences.units);
   const currentKey = `${lat}_${lon}_${units}`;
   const forecastKey = `${lat}_${lon}_${units}_forecast`;
+  
+  const [timeRange, setTimeRange] = useState<number>(24);
+  const [lastUpdated, setLastUpdated] = useState<Date>(new Date());
 
   const current = useAppSelector((state: RootState) => (state as any).weather?.byId?.[currentKey]?.data);
   const forecast = useAppSelector((state: RootState) => (state as any).weather?.forecastsById?.[forecastKey]?.data);
@@ -40,6 +45,24 @@ export const WeatherDetail: React.FC<WeatherDetailProps> = ({
     }
   }, [dispatch, lat, lon, units, current, forecast]);
 
+  useEffect(() => {
+    const intervalId = setInterval(() => {
+      console.log('Auto-refreshing weather data (60s interval)...');
+      dispatch(fetchCurrentWeather({ lat, lon, units }));
+      dispatch(fetchForecast({ lat, lon, units }));
+      setLastUpdated(new Date());
+    }, 60000); // 60 seconds
+
+    // Cleanup interval on unmount
+    return () => clearInterval(intervalId);
+  }, [dispatch, lat, lon, units]);
+
+  useEffect(() => {
+    if (current || forecast) {
+      setLastUpdated(new Date());
+    }
+  }, [current, forecast]);
+
   if (status === 'loading' && !forecast && !current) {
     return <div className="loading">Loading weather data...</div>;
   }
@@ -52,7 +75,6 @@ export const WeatherDetail: React.FC<WeatherDetailProps> = ({
   const hourly = Array.isArray((data as any).hourly) ? (data as any).hourly : [];
   const daily = Array.isArray((data as any).daily) ? (data as any).daily : [];
 
-  // Derive a temperature for header from current -> hourly[0] -> daily[0].temp.day
   const headerTempRaw: number | undefined = (current as any)?.current?.temp
     ?? (current as any)?.main?.temp
     ?? (forecast as any)?.current?.temp
@@ -101,23 +123,50 @@ export const WeatherDetail: React.FC<WeatherDetailProps> = ({
             {headerCondition}
           </div>
         </div>
+        <div className="last-updated">
+          Last updated: {lastUpdated.toLocaleTimeString()}
+        </div>
       </header>
 
       {daily.length > 0 && (
         <DailyForecast data={daily} units={units} />
       )}
 
+      {hourly.length > 0 && (
+        <HourlyForecast data={hourly} units={units} />
+      )}
+
+      {/* Date Range Selector */}
+      <div className="date-range-selector">
+        <label htmlFor="time-range">Chart Time Range:</label>
+        <select 
+          id="time-range"
+          value={timeRange} 
+          onChange={(e) => setTimeRange(Number(e.target.value))}
+          className="time-range-select"
+        >
+          <option value={6}>Last 6 Hours</option>
+          <option value={12}>Last 12 Hours</option>
+          <option value={24}>Next 24 Hours</option>
+          <option value={48}>Next 48 Hours</option>
+        </select>
+      </div>
+
       <div className="charts-grid">
         <div className="chart-section">
-          <TemperatureChart data={hourly} />
+          <TemperatureChart data={hourly} timeRange={timeRange} units={units} />
         </div>
 
         <div className="chart-section">
-          <PrecipitationChart data={hourly} />
+          <DailyTemperatureChart data={daily} units={units} />
         </div>
 
         <div className="chart-section">
-          <WindChart data={hourly} />
+          <PrecipitationChart data={hourly} timeRange={timeRange} />
+        </div>
+
+        <div className="chart-section">
+          <WindChart data={hourly} timeRange={timeRange} />
         </div>
       </div>
 

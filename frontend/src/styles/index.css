@@ -373,6 +373,20 @@ body {
   gap: var(--spacing-md);
 }
 
+.weather-main {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-md);
+  justify-content: center;
+}
+
+.weather-icon {
+  width: 80px;
+  height: 80px;
+  object-fit: contain;
+  filter: drop-shadow(0 2px 8px rgba(0, 0, 0, 0.1));
+}
+
 .temperature {
   font-size: 3rem;
   font-weight: 800;
@@ -381,7 +395,7 @@ body {
   -webkit-text-fill-color: transparent;
   background-clip: text;
   line-height: 1;
-  margin: var(--spacing-sm) 0;
+  margin: 0;
 }
 
 .weather-condition {
@@ -525,6 +539,11 @@ body {
   
   .weather-card {
     padding: var(--spacing-md);
+  }
+  
+  .weather-icon {
+    width: 60px;
+    height: 60px;
   }
   
   .weather-card-header h3 {

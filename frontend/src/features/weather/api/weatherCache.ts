@@ -15,7 +15,7 @@ class WeatherCacheService {
   private currentWeatherCache: Map<string, CacheEntry>;
   private forecastCache: Map<string, CacheEntry>;
   private metrics: CacheMetrics;
-  private readonly TTL = 5 * 60 * 1000; // 5 minutes
+  private readonly TTL = 60 * 1000; // 60 seconds for real-time data
 
   constructor() {
     this.currentWeatherCache = new Map();

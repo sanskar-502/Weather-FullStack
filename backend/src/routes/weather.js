@@ -114,7 +114,10 @@ router.get('/forecast', async (req, res) => {
       const byDay = new Map();
       hourly.forEach((h) => {
         const d = new Date(h.dt * 1000);
-        const key = `${d.getUTCFullYear()}-${d.getUTCMonth()+1}-${d.getUTCDate()}`;
+        const year = d.getFullYear();
+        const month = String(d.getMonth() + 1).padStart(2, '0');
+        const day = String(d.getDate()).padStart(2, '0');
+        const key = `${year}-${month}-${day}`;
         const arr = byDay.get(key) || [];
         arr.push(h);
         byDay.set(key, arr);
@@ -125,8 +128,12 @@ router.get('/forecast', async (req, res) => {
         const min = Math.min(...temps);
         const max = Math.max(...temps);
         const mid = arr[Math.min(Math.floor(arr.length/2), arr.length-1)];
+        const firstDate = new Date(arr[0].dt * 1000);
+        firstDate.setHours(12, 0, 0, 0);
+        const normalizedDt = Math.floor(firstDate.getTime() / 1000);
+        
         return {
-          dt: mid.dt,
+          dt: normalizedDt,
           temp: { day: mid.temp, min, max, morn: arr[0]?.temp, eve: arr[arr.length-1]?.temp, night: arr[arr.length-1]?.temp },
           feels_like: { day: mid.feels_like, morn: arr[0]?.feels_like, eve: arr[arr.length-1]?.feels_like, night: arr[arr.length-1]?.feels_like },
           pressure: mid.pressure,
@@ -159,7 +166,7 @@ router.get('/forecast', async (req, res) => {
 
     if (hasRedis) {
       try {
-        await redis.set(cacheKey, payload, { ex: 300 });
+        await redis.set(cacheKey, payload, { ex: 60 }); // 60 seconds for real-time data
       } catch (e) {
         console.warn('Redis set failed (continuing without cache):', e?.message || e);
       }

@@ -10,18 +10,22 @@ A modern, full-stack weather application providing real-time weather data, forec
 ## ✨ Features
 
 ### 🌍 **Core Weather Features**
-- **Real-time Weather Data** - Live weather updates with < 60 second freshness
+- **Real-time Weather Data** - Live weather updates with < 60 second freshness and auto-refresh
 - **7-Day Forecast** - Daily weather predictions with min/max temperatures
 - **48-Hour Forecast** - Hourly weather data for detailed planning
 - **Multiple Cities** - Track weather for unlimited locations
-- **Favorites System** - Save and quickly access your favorite cities
+- **Favorites System** - Save and quickly access your favorite cities with toast notifications
 - **Recent Searches** - Automatically tracks recently viewed locations
+- **Last Updated Indicator** - Visible timestamp showing data freshness
+- **Weather Icons** - Visual condition indicators from OpenWeatherMap
 
 ### 📊 **Data Visualizations**
 - **Temperature Trends** - Interactive line charts showing temperature and "feels like" over time
+- **Daily Temperature Chart** - 7-day min/max temperature visualization
 - **Precipitation Analysis** - Bar charts displaying rain, snow, and probability
 - **Wind Analytics** - Speed/gust trends and unique compass-style direction visualization
 - **Interactive Charts** - Hover tooltips, clickable legends, and zoom/pan controls using Recharts
+- **Unit-Aware Labels** - Dynamic chart labels reflecting °C or °F preference
 - **Mobile Responsive** - All charts optimized for mobile viewing
 
 ### 🔐 **Authentication & User Management**
@@ -34,6 +38,8 @@ A modern, full-stack weather application providing real-time weather data, forec
 - **Temperature Units** - Toggle between Celsius (°C) and Fahrenheit (°F)
 - **Auto-sync Preferences** - Settings saved to database and synced across devices
 - **Instant Updates** - UI updates immediately when changing units
+- **Toast Notifications** - Real-time feedback for actions (login, favorites, search)
+- **Auto-refresh** - Weather data automatically updates every 60 seconds
 
 ### 🔍 **Search & Discovery**
 - **Smart Search** - Type-ahead autocomplete for cities worldwide
@@ -42,10 +48,11 @@ A modern, full-stack weather application providing real-time weather data, forec
 
 ### 🚀 **Performance & Optimization**
 - **Multi-layer Caching**
-  - Redis server cache (60s TTL for current weather)
-  - Client-side browser cache
+  - Redis server cache (60s TTL for current weather, 60s for forecast)
+  - Client-side browser cache (60s TTL)
   - Redux in-memory state cache
   - Request de-duplication
+- **Real-time Data Freshness** - Automatic 60-second polling for live updates
 - **90%+ API Call Reduction** - Intelligent caching strategy
 - **Lazy Loading** - Components loaded on-demand
 - **Optimized Bundle** - Code splitting for faster initial load
@@ -70,6 +77,7 @@ A modern, full-stack weather application providing real-time weather data, forec
 - **date-fns 4.1.0** - Date formatting utilities
 - **Firebase 12.5.0** - Authentication
 - **React Scripts 5.0.1** - Build tooling (Create React App)
+- **Custom Toast System** - User feedback notifications
 
 ### **Backend**
 - **Node.js** - JavaScript runtime
@@ -242,9 +250,11 @@ User Request → Redux Cache → Client Cache → Backend API
 ### 2. **Real-Time Data Freshness**
 
 - Current weather cached for **60 seconds** maximum
-- Forecasts cached for **5 minutes**
+- Forecasts cached for **60 seconds** maximum
+- **Auto-refresh polling** - Data refetches every 60 seconds automatically
 - Automatic cache invalidation on expiry
-- Timestamp tracking for data age verification
+- **"Last Updated" timestamp** - Visible indicator of data freshness
+- User can see exact time of last data refresh
 
 ---
 

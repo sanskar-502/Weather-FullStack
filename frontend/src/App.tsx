@@ -7,9 +7,10 @@ import { WeatherProvider } from './features/weather/context/WeatherContext';
 import { Dashboard } from './pages/Dashboard';
 import { Login } from './features/auth/Login';
 import { UnitToggle } from './features/preferences/components/UnitToggle';
+import { ToastContainer } from './shared/components/ToastContainer';
 import './styles/index.css';
 
-const Header: React.FC = () => (
+const Header: React.FC<{ showToast?: (message: string, type?: 'success' | 'error' | 'info') => void }> = ({ showToast }) => (
   <header className="app-header">
     <div className="brand" aria-label="Weather Dashboard">
       <span className="brand-logo" aria-hidden>⛅</span>
@@ -17,7 +18,7 @@ const Header: React.FC = () => (
     </div>
     <div className="header-actions">
       <UnitToggle />
-      <Login />
+      <Login showToast={showToast} />
     </div>
   </header>
 );
@@ -25,39 +26,45 @@ const Header: React.FC = () => (
 const AppContent: React.FC = () => {
   const { user, status } = useAppSelector((state) => state.auth);
 
-  if (status === 'loading') {
-    return (
-      <div className="app">
-        <Header />
-        <main className="centered-screen">
-          <div className="login-loading">Loading...</div>
-        </main>
-      </div>
-    );
-  }
-
-  if (!user) {
-    return (
-      <div className="app">
-        <Header />
-        <main className="centered-screen">
-          <div className="auth-card">
-            <h1>Welcome</h1>
-            <p>Please sign in to continue</p>
-            <Login />
-          </div>
-        </main>
-      </div>
-    );
-  }
-
   return (
-    <div className="app">
-      <Header />
-      <main>
-        <Dashboard />
-      </main>
-    </div>
+    <ToastContainer>
+      {(showToast) => {
+        if (status === 'loading') {
+          return (
+            <div className="app">
+              <Header showToast={showToast} />
+              <main className="centered-screen">
+                <div className="login-loading">Loading...</div>
+              </main>
+            </div>
+          );
+        }
+
+        if (!user) {
+          return (
+            <div className="app">
+              <Header showToast={showToast} />
+              <main className="centered-screen">
+                <div className="auth-card">
+                  <h1>Welcome</h1>
+                  <p>Please sign in to continue</p>
+                  <Login showToast={showToast} />
+                </div>
+              </main>
+            </div>
+          );
+        }
+
+        return (
+          <div className="app">
+            <Header showToast={showToast} />
+            <main>
+              <Dashboard />
+            </main>
+          </div>
+        );
+      }}
+    </ToastContainer>
   );
 };
 
