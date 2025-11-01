@@ -38,9 +38,9 @@ export const HourlyForecast: React.FC<HourlyForecastProps> = ({ data, units }) =
           return (
             <div key={hour.dt} className="hourly-forecast-item">
               <div className="time">
-                {isToday && format(time, 'HH:mm') === format(new Date(), 'HH:mm')
+                {isToday && format(time, 'h:mm a') === format(new Date(), 'h:mm a')
                   ? 'Now'
-                  : format(time, 'HH:mm')}
+                  : format(time, 'h:mm a')}
               </div>
               <div className="date-label">{format(time, 'EEE')}</div>
               {hour.weather?.[0]?.icon && (

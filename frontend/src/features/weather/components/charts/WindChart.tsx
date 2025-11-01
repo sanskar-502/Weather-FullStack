@@ -38,7 +38,7 @@ export const WindChart: React.FC<WindChartProps> = ({ data, timeRange = 24 }) =>
   const filteredData = data.filter(item => item.dt >= now && item.dt <= targetTime);
   
   const formattedData = filteredData.map(item => ({
-    time: format(new Date(item.dt * 1000), 'HH:mm'),
+    time: format(new Date(item.dt * 1000), 'h:mm a'),
     speed: item.wind_speed,
     gust: item.wind_gust,
     direction: degreesToDirection(item.wind_deg),

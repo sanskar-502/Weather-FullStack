@@ -33,7 +33,7 @@ export const TemperatureChart: React.FC<TemperatureChartProps> = ({ data, timeRa
   
   const formattedData = filteredData.map(item => ({
     ...item,
-    time: format(new Date(item.dt * 1000), 'HH:mm'),
+    time: format(new Date(item.dt * 1000), 'h:mm a'),
     date: format(new Date(item.dt * 1000), 'MMM dd')
   }));
 

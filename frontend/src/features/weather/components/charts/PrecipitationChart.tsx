@@ -35,10 +35,10 @@ export const PrecipitationChart: React.FC<PrecipitationChartProps> = ({ data, ti
   const filteredData = data.filter(item => item.dt >= now && item.dt <= targetTime);
   
   const formattedData = filteredData.map(item => ({
-    time: format(new Date(item.dt * 1000), 'HH:mm'),
-    rain: item.rain?.['1h'] || 0,
-    snow: item.snow?.['1h'] || 0,
-    pop: item.pop * 100 // Convert to percentage
+    time: format(new Date(item.dt * 1000), 'h:mm a'),
+    rain: Math.round((item.rain?.['1h'] || 0) * 100) / 100,
+    snow: Math.round((item.snow?.['1h'] || 0) * 100) / 100,
+    pop: Math.round(item.pop * 100)
   }));
 
   const getTitle = () => {
@@ -58,7 +58,7 @@ export const PrecipitationChart: React.FC<PrecipitationChartProps> = ({ data, ti
           <XAxis dataKey="time" minTickGap={20} />
           <YAxis yAxisId="left" tickFormatter={(value) => `${value}mm`} />
           <YAxis yAxisId="right" orientation="right" tickFormatter={(value) => `${value}%`} domain={[0, 100]} />
-          <Tooltip labelFormatter={(label) => `Time: ${label}`} formatter={(value: number, name: string) => [name === 'pop' ? `${value}%` : `${value}mm`, name === 'pop' ? 'Probability' : name]} />
+          <Tooltip labelFormatter={(label) => `Time: ${label}`} formatter={(value: number, name: string) => [name === 'pop' ? `${value}%` : `${value.toFixed(2)}mm`, name === 'pop' ? 'Probability' : name]} />
           <Legend />
           <Bar dataKey="rain" fill="#4299e1" yAxisId="left" name="Rain" />
           <Bar dataKey="snow" fill="#a0aec0" yAxisId="left" name="Snow" />
