@@ -9,7 +9,7 @@ const app = express();
 connectDB();
 
 app.use(cors({
-  origin: ['http://localhost:3000', 'https://weather-fullstack-frontend.onrender.com'],
+  origin: ['http://localhost:3000', 'https://weather-fullstack-vwdi.onrender.com'],
   credentials: true,
   allowedHeaders: ['Content-Type', 'Authorization']
 }));
