@@ -11,7 +11,9 @@ connectDB();
 app.use(cors({
   origin: ['http://localhost:3000', 'https://weather-fullstack-vwdi.onrender.com'],
   credentials: true,
-  allowedHeaders: ['Content-Type', 'Authorization']
+  allowedHeaders: ['Content-Type', 'Authorization'],
+  exposedHeaders: ['Authorization'],
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS']
 }));
 app.use(express.json());
 

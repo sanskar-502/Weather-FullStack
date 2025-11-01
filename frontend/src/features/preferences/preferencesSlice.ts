@@ -1,5 +1,5 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
-import axios from 'axios';
+import apiClient from '../weather/api/apiClient';
 
 export type Units = 'metric' | 'imperial';
 export type WindUnit = 'm/s' | 'km/h' | 'mph';
@@ -30,8 +30,7 @@ export const syncPreferences = createAsyncThunk(
       const state: any = getState();
       const prefs = state.preferences;
 
-      const apiBase = process.env.REACT_APP_API_URL || 'http://localhost:3001/api';
-      await axios.put(`${apiBase}/users/preferences`, {
+      await apiClient.put('/users/preferences', {
         units: prefs.units,
         windUnit: prefs.windUnit,
         pressureUnit: prefs.pressureUnit,
