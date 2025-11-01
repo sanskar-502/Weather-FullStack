@@ -6,20 +6,22 @@ const { connectDB } = require('./config/db');
 
 const app = express();
 
+app.set('trust proxy', 1);
+
 connectDB();
 
 app.use(cors({
-  origin: ['http://localhost:3000', 'https://weather-fullstack-vwdi.onrender.com'],
-  credentials: true,
-  allowedHeaders: ['Content-Type', 'Authorization'],
-  exposedHeaders: ['Authorization'],
-  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS']
+  origin: ['http://localhost:3000', 'https://weather-fullstack-vwdi.onrender.com'],
+  credentials: true,
+  allowedHeaders: ['Content-Type', 'Authorization'],
+  exposedHeaders: ['Authorization'],
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS']
 }));
 app.use(express.json());
 
 const limiter = rateLimit({
-  windowMs: 15 * 60 * 1000,
-  max: 100
+  windowMs: 15 * 60 * 1000,
+  max: 100
 });
 app.use('/api/search', limiter);
 
@@ -29,5 +31,5 @@ app.use('/api/users', require('./routes/user'));
 
 const PORT = process.env.PORT || 3001;
 app.listen(PORT, () => {
-  console.log(`Server running on port ${PORT}`);
+  console.log(`Server running on port ${PORT}`);
 });
