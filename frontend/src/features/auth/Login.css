@@ -1,0 +1,355 @@
+.login-container {
+  display: flex;
+  gap: var(--spacing-md, 1rem);
+  align-items: center;
+  justify-content: center;
+}
+
+.login-card {
+  background: white;
+  border-radius: 12px;
+  padding: 32px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+  width: 100%;
+  max-width: 400px;
+  text-align: center;
+}
+
+.login-card h2 {
+  color: #333;
+  margin-bottom: 16px;
+  font-size: 24px;
+}
+
+.login-card p {
+  color: #666;
+  margin-bottom: 24px;
+}
+
+.google-sign-in-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  width: 100%;
+  padding: 12px 24px;
+  background: white;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  font-size: 16px;
+  color: #333;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.google-sign-in-button:hover {
+  background: #f8f9fa;
+  border-color: #aaa;
+}
+
+.google-sign-in-button:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+}
+
+.google-sign-in-button img {
+  width: 24px;
+  height: 24px;
+}
+
+.loading-spinner {
+  display: inline-block;
+  width: 24px;
+  height: 24px;
+  border: 3px solid #f3f3f3;
+  border-top: 3px solid #3498db;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+.error-message {
+  margin-top: 16px;
+  padding: 12px;
+  background: #fee2e2;
+  border: 1px solid #ef4444;
+  border-radius: 6px;
+  color: #dc2626;
+}
+
+.features-list {
+  margin-top: 32px;
+  text-align: left;
+  border-top: 1px solid #eee;
+  padding-top: 24px;
+}
+
+.features-list h3 {
+  color: #333;
+  margin-bottom: 12px;
+  font-size: 18px;
+}
+
+.features-list ul {
+  list-style: none;
+  padding: 0;
+}
+
+.features-list li {
+  margin-bottom: 8px;
+  color: #4b5563;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.user-info {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-md, 1rem);
+  padding: var(--spacing-sm, 0.5rem) var(--spacing-md, 1rem);
+  background: var(--bg-primary, white);
+  border-radius: var(--radius-full, 50px);
+  box-shadow: var(--shadow-sm);
+  border: 1px solid var(--border-color, #e2e8f0);
+  transition: all var(--transition-base, 250ms ease);
+}
+
+.user-info:hover {
+  box-shadow: var(--shadow-md);
+}
+
+.user-avatar {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid var(--primary-color, #667eea);
+}
+
+.user-name {
+  font-weight: 600;
+  color: var(--text-primary, #2d3748);
+  font-size: 14px;
+  max-width: 150px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.sign-in-button {
+  padding: var(--spacing-sm, 0.5rem) var(--spacing-lg, 1.5rem);
+  background: var(--primary-gradient);
+  color: white;
+  border: none;
+  border-radius: var(--radius-full, 50px);
+  cursor: pointer;
+  font-weight: 600;
+  font-size: 14px;
+  transition: all var(--transition-base, 250ms ease);
+  box-shadow: var(--shadow-sm);
+}
+
+.sign-in-button:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
+}
+
+.sign-in-button:active {
+  transform: translateY(0);
+}
+
+.sign-out-button {
+  margin-left: auto;
+  padding: var(--spacing-xs, 0.25rem) var(--spacing-md, 1rem);
+  background: var(--bg-tertiary, #edf2f7);
+  color: var(--text-secondary, #718096);
+  border: none;
+  border-radius: var(--radius-full, 50px);
+  cursor: pointer;
+  font-weight: 600;
+  font-size: 13px;
+  transition: all var(--transition-fast, 150ms ease);
+}
+
+.sign-out-button:hover {
+  background: #fee2e2;
+  color: #dc2626;
+}
+
+.login-loading,
+.login-error {
+  padding: var(--spacing-sm, 0.5rem) var(--spacing-md, 1rem);
+  border-radius: var(--radius-full, 50px);
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.login-loading {
+  background: var(--bg-secondary, #f7fafc);
+  color: var(--text-secondary, #718096);
+}
+
+.login-error {
+  background: #fee2e2;
+  color: #dc2626;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* Touch-friendly button sizing */
+.sign-in-button,
+.sign-out-button {
+  min-height: 44px;
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.user-avatar {
+  flex-shrink: 0;
+}
+
+/* Tablet responsive */
+@media (max-width: 768px) {
+  .login-container {
+    flex-direction: column;
+    gap: var(--spacing-lg, 1.5rem);
+    width: 100%;
+  }
+  
+  .login-card {
+    padding: 28px;
+    max-width: 90%;
+  }
+  
+  .user-info {
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+  
+  .user-name {
+    max-width: 200px;
+  }
+}
+
+/* Mobile responsive */
+@media (max-width: 640px) {
+  .login-container {
+    padding: 0;
+  }
+  
+  .login-card {
+    padding: 24px 20px;
+    max-width: 100%;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  }
+  
+  .login-card h2 {
+    font-size: 20px;
+    margin-bottom: 12px;
+  }
+  
+  .login-card p {
+    font-size: 14px;
+    margin-bottom: 20px;
+  }
+  
+  .google-sign-in-button {
+    padding: 12px 20px;
+    font-size: 15px;
+    min-height: 48px;
+  }
+  
+  .features-list {
+    margin-top: 24px;
+    padding-top: 20px;
+  }
+  
+  .features-list h3 {
+    font-size: 16px;
+    margin-bottom: 10px;
+  }
+  
+  .features-list li {
+    font-size: 14px;
+    margin-bottom: 10px;
+  }
+  
+  .user-info {
+    padding: var(--spacing-xs, 0.375rem) var(--spacing-sm, 0.75rem);
+    gap: var(--spacing-sm, 0.75rem);
+    width: 100%;
+    max-width: 100%;
+  }
+  
+  .user-avatar {
+    width: 32px;
+    height: 32px;
+  }
+  
+  .user-name {
+    font-size: 13px;
+    max-width: 120px;
+    flex: 1;
+  }
+  
+  .sign-in-button {
+    padding: var(--spacing-sm, 0.625rem) var(--spacing-md, 1.25rem);
+    font-size: 15px;
+    min-height: 44px;
+    width: 100%;
+    max-width: 200px;
+  }
+  
+  .sign-out-button {
+    padding: var(--spacing-xs, 0.375rem) var(--spacing-sm, 0.875rem);
+    font-size: 12px;
+    min-height: 36px;
+    white-space: nowrap;
+  }
+  
+  .login-loading,
+  .login-error {
+    font-size: 13px;
+    padding: var(--spacing-xs, 0.375rem) var(--spacing-sm, 0.75rem);
+  }
+}
+
+/* Small mobile devices */
+@media (max-width: 480px) {
+  .login-card {
+    padding: 20px 16px;
+    border-radius: 8px;
+  }
+  
+  .login-card h2 {
+    font-size: 18px;
+  }
+
+  .google-sign-in-button {
+    padding: 12px 16px;
+    font-size: 14px;
+  }
+  
+  .google-sign-in-button img {
+    width: 20px;
+    height: 20px;
+  }
+  
+  .loading-spinner {
+    width: 20px;
+    height: 20px;
+  }
+  
+  .user-name {
+    font-size: 12px;
+    max-width: 100px;
+  }
+  
+  .sign-in-button {
+    font-size: 14px;
+    max-width: 180px;
+  }
+}

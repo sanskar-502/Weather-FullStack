@@ -1,0 +1,436 @@
+/* Weather Detail styles - aligned to global design system */
+.weather-detail {
+  padding: var(--spacing-xl);
+  background: var(--bg-primary);
+  border-radius: var(--radius-xl);
+  box-shadow: var(--shadow-lg);
+  border: 1px solid var(--border-color);
+}
+
+.weather-detail-header {
+  margin-bottom: var(--spacing-xl);
+  text-align: center;
+}
+
+.weather-detail-header h2 {
+  margin-bottom: var(--spacing-sm);
+  font-size: 2rem;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  background: var(--primary-gradient);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.current-conditions {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--spacing-xs);
+}
+
+.temperature {
+  font-size: 3rem;
+  font-weight: 800;
+}
+
+.condition {
+  text-transform: capitalize;
+  color: var(--text-secondary);
+}
+
+/* Daily Forecast */
+.daily-forecast {
+  margin: var(--spacing-xl) 0;
+  padding: var(--spacing-lg);
+  background: var(--bg-secondary);
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--border-color);
+}
+
+.daily-forecast h3 {
+  margin-bottom: var(--spacing-md);
+  font-size: 1.25rem;
+  color: var(--text-primary);
+}
+
+.daily-forecast-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+  gap: var(--spacing-md);
+}
+
+.daily-forecast-item {
+  text-align: center;
+  padding: var(--spacing-md);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-md);
+  background: var(--bg-primary);
+  transition: transform var(--transition-fast), box-shadow var(--transition-fast);
+}
+
+.daily-forecast-item:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
+}
+
+.daily-forecast-item .date {
+  font-weight: 700;
+  margin-bottom: var(--spacing-xs);
+  color: var(--text-primary);
+}
+
+.daily-forecast-item .weather-icon {
+  width: 50px;
+  height: 50px;
+  margin: var(--spacing-xs) auto;
+}
+
+.daily-forecast-item .temp-range {
+  display: flex;
+  justify-content: center;
+  gap: var(--spacing-lg);
+  margin: var(--spacing-xs) 0;
+}
+
+.daily-forecast-item .max {
+  color: #e03e3e;
+  font-weight: 600;
+}
+
+.daily-forecast-item .min {
+  color: #5c7cfa;
+  font-weight: 600;
+}
+
+.daily-forecast-item .description {
+  color: var(--text-secondary);
+  font-size: 0.9rem;
+  text-transform: capitalize;
+}
+
+/* Charts */
+.charts-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--spacing-xl);
+  margin: var(--spacing-xl) 0;
+}
+
+.chart-section {
+  background: var(--bg-primary);
+  border-radius: var(--radius-lg);
+  padding: var(--spacing-md);
+  border: 1px solid var(--border-color);
+  box-shadow: var(--shadow-sm);
+}
+
+.chart-container h3,
+.wind-speed-chart h3,
+.wind-direction-chart h3 {
+  margin-bottom: var(--spacing-md);
+  font-size: 1.25rem;
+  color: var(--text-primary);
+}
+
+/* Additional Info */
+.additional-info {
+  margin-top: var(--spacing-xl);
+}
+
+.info-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: var(--spacing-md);
+}
+
+.info-item {
+  padding: var(--spacing-md);
+  background: var(--bg-secondary);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-md);
+  text-align: center;
+}
+
+.info-item label {
+  display: block;
+  color: var(--text-secondary);
+  margin-bottom: var(--spacing-xs);
+  font-size: 0.9rem;
+}
+
+.info-item span {
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+/* Loading and Error states */
+.loading,
+.error {
+  text-align: center;
+  padding: var(--spacing-xl);
+  color: var(--text-secondary);
+}
+
+.error {
+  color: #e53e3e;
+}
+
+/* Responsive */
+@media (min-width: 768px) {
+  .charts-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (min-width: 1024px) {
+  .weather-detail {
+    padding: var(--spacing-2xl);
+  }
+}
+
+/* Tablet responsive */
+@media (max-width: 768px) {
+  .weather-detail {
+    padding: var(--spacing-lg);
+  }
+  
+  .weather-detail-header h2 {
+    font-size: 1.75rem;
+  }
+  
+  .temperature {
+    font-size: 2.5rem;
+  }
+  
+  .daily-forecast {
+    padding: var(--spacing-md);
+  }
+  
+  .daily-forecast-grid {
+    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+    gap: var(--spacing-sm);
+  }
+  
+  .charts-grid {
+    gap: var(--spacing-lg);
+  }
+  
+  .chart-section {
+    padding: var(--spacing-md);
+  }
+  
+  .info-grid {
+    grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+    gap: var(--spacing-sm);
+  }
+}
+
+/* Mobile responsive */
+@media (max-width: 640px) {
+  .weather-detail {
+    padding: var(--spacing-md);
+    border-radius: var(--radius-lg);
+  }
+  
+  .weather-detail-header {
+    margin-bottom: var(--spacing-lg);
+  }
+  
+  .weather-detail-header h2 {
+    font-size: 1.5rem;
+    margin-bottom: var(--spacing-xs);
+  }
+  
+  .current-conditions {
+    gap: var(--spacing-xs);
+  }
+  
+  .temperature {
+    font-size: 2.25rem;
+  }
+  
+  .condition {
+    font-size: 0.95rem;
+  }
+  
+  /* Daily Forecast - Mobile optimized */
+  .daily-forecast {
+    margin: var(--spacing-lg) 0;
+    padding: var(--spacing-md);
+  }
+  
+  .daily-forecast h3 {
+    font-size: 1.1rem;
+    margin-bottom: var(--spacing-sm);
+  }
+  
+  .daily-forecast-grid {
+    grid-template-columns: 1fr;
+    gap: var(--spacing-sm);
+    max-height: 400px;
+    overflow-y: auto;
+    padding-right: var(--spacing-xs);
+  }
+  
+  .daily-forecast-item {
+    padding: var(--spacing-sm);
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;
+    align-items: center;
+    gap: var(--spacing-md);
+  }
+  
+  .daily-forecast-item .date {
+    font-size: 0.9rem;
+    text-align: left;
+  }
+  
+  .daily-forecast-item .weather-icon {
+    width: 40px;
+    height: 40px;
+    margin: 0;
+  }
+  
+  .daily-forecast-item .temp-range {
+    gap: var(--spacing-sm);
+    font-size: 0.9rem;
+    justify-content: flex-end;
+  }
+  
+  .daily-forecast-item .description {
+    grid-column: 1 / -1;
+    font-size: 0.85rem;
+    margin-top: var(--spacing-xs);
+    text-align: center;
+  }
+  
+  /* Charts - Stacked for mobile */
+  .charts-grid {
+    grid-template-columns: 1fr;
+    gap: var(--spacing-md);
+    margin: var(--spacing-lg) 0;
+  }
+  
+  .chart-section {
+    padding: var(--spacing-sm);
+    min-height: 250px;
+  }
+  
+  .chart-container h3,
+  .wind-speed-chart h3,
+  .wind-direction-chart h3 {
+    font-size: 1rem;
+    margin-bottom: var(--spacing-sm);
+  }
+  
+  /* Make charts responsive */
+  .chart-section canvas {
+    max-width: 100%;
+    height: auto !important;
+  }
+  
+  /* Additional Info - Grid optimized for mobile */
+  .additional-info {
+    margin-top: var(--spacing-lg);
+  }
+  
+  .info-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--spacing-sm);
+  }
+  
+  .info-item {
+    padding: var(--spacing-sm);
+  }
+  
+  .info-item label {
+    font-size: 0.85rem;
+    margin-bottom: 2px;
+  }
+  
+  .info-item span {
+    font-size: 1.1rem;
+  }
+  
+  /* Loading and Error states */
+  .loading,
+  .error {
+    padding: var(--spacing-lg);
+    font-size: 0.95rem;
+  }
+}
+
+/* Small mobile devices */
+@media (max-width: 480px) {
+  .weather-detail {
+    padding: var(--spacing-sm);
+  }
+  
+  .weather-detail-header h2 {
+    font-size: 1.35rem;
+  }
+  
+  .temperature {
+    font-size: 2rem;
+  }
+  
+  .daily-forecast {
+    padding: var(--spacing-sm);
+  }
+  
+  .daily-forecast h3 {
+    font-size: 1rem;
+  }
+  
+  .daily-forecast-grid {
+    max-height: 350px;
+  }
+  
+  .daily-forecast-item {
+    padding: var(--spacing-xs) var(--spacing-sm);
+    gap: var(--spacing-sm);
+  }
+  
+  .daily-forecast-item .date {
+    font-size: 0.85rem;
+  }
+  
+  .daily-forecast-item .weather-icon {
+    width: 36px;
+    height: 36px;
+  }
+  
+  .daily-forecast-item .temp-range {
+    font-size: 0.85rem;
+  }
+  
+  .chart-section {
+    padding: var(--spacing-xs) var(--spacing-sm);
+    min-height: 220px;
+  }
+  
+  .chart-container h3,
+  .wind-speed-chart h3,
+  .wind-direction-chart h3 {
+    font-size: 0.95rem;
+  }
+  
+  .info-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+  
+  .info-item {
+    padding: var(--spacing-xs) var(--spacing-sm);
+  }
+  
+  .info-item label {
+    font-size: 0.8rem;
+  }
+  
+  .info-item span {
+    font-size: 1rem;
+  }
+}

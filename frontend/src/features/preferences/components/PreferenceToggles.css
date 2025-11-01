@@ -1,0 +1,57 @@
+.unit-toggle,
+.theme-toggle {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--spacing-xs, 0.25rem);
+}
+
+.unit-toggle-button,
+.theme-toggle-button {
+  padding: var(--spacing-xs, 0.25rem) var(--spacing-md, 1rem);
+  border: 2px solid var(--border-color, #e2e8f0);
+  border-radius: var(--radius-full, 50px);
+  background: var(--bg-primary, white);
+  color: var(--text-secondary, #718096);
+  cursor: pointer;
+  font-weight: 600;
+  font-size: 13px;
+  transition: all var(--transition-fast, 150ms ease);
+  box-shadow: var(--shadow-sm);
+  white-space: nowrap;
+}
+
+.unit-toggle-button:hover,
+.theme-toggle-button:hover {
+  background: var(--bg-secondary, #f7fafc);
+  transform: translateY(-1px);
+  box-shadow: var(--shadow-md);
+}
+
+.unit-toggle-button.active {
+  background: var(--primary-gradient);
+  color: white;
+  border-color: transparent;
+  box-shadow: var(--shadow-md);
+}
+
+.unit-toggle-button:active,
+.theme-toggle-button:active {
+  transform: translateY(0);
+}
+
+.theme-toggle-button .theme-icon {
+  font-size: 1.1rem;
+}
+
+
+.theme-toggle-button.dark {
+  background: linear-gradient(135deg, #2d3748 0%, #1a202c 100%);
+  color: #f7fafc;
+  border-color: transparent;
+}
+
+.theme-toggle-button.light {
+  background: var(--bg-primary, white);
+  color: var(--text-primary, #2d3748);
+}

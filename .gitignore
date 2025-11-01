@@ -1,0 +1,202 @@
+# ============================================
+# Weather Analytics Dashboard - Root .gitignore
+# ============================================
+
+# Operating System Files
+# ----------------------
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+._*
+.Spotlight-V100
+.Trashes
+
+# Windows
+Thumbs.db
+Thumbs.db:encryptable
+ehthumbs.db
+ehthumbs_vista.db
+*.stackdump
+[Dd]esktop.ini
+$RECYCLE.BIN/
+*.cab
+*.msi
+*.msix
+*.msm
+*.msp
+*.lnk
+
+# Linux
+*~
+.directory
+.Trash-*
+
+# IDE & Editor Files
+# ------------------
+# VSCode
+.vscode/
+*.code-workspace
+.history/
+
+# JetBrains IDEs (WebStorm, IntelliJ, etc.)
+.idea/
+*.iml
+*.ipr
+*.iws
+out/
+
+# Sublime Text
+*.sublime-project
+*.sublime-workspace
+
+# Vim
+*.swp
+*.swo
+*~
+
+# Emacs
+*~
+\#*\#
+/.emacs.desktop
+/.emacs.desktop.lock
+*.elc
+
+# Environment Variables
+# ---------------------
+.env
+.env.local
+.env.development
+.env.test
+.env.production
+.env.*.local
+
+# Logs
+# ----
+logs/
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+lerna-debug.log*
+.pnpm-debug.log*
+
+# Runtime data
+pids
+*.pid
+*.seed
+*.pid.lock
+
+# Coverage & Testing
+# ------------------
+coverage/
+*.lcov
+.nyc_output/
+.grunt
+lib-cov
+
+# Build Outputs
+# -------------
+dist/
+build/
+*.min.js
+*.min.css
+
+# Package Managers
+# ----------------
+node_modules/
+jspm_packages/
+
+# Optional npm cache directory
+.npm
+
+# Optional eslint cache
+.eslintcache
+
+# Optional stylelint cache
+.stylelintcache
+
+# Microbundle cache
+.rpt2_cache/
+.rts2_cache_cjs/
+.rts2_cache_es/
+.rts2_cache_umd/
+
+# Optional REPL history
+.node_repl_history
+
+# Output of 'npm pack'
+*.tgz
+
+# Yarn
+.yarn/cache
+.yarn/unplugged
+.yarn/build-state.yml
+.yarn/install-state.gz
+.pnp.*
+yarn-error.log
+
+# TypeScript
+# ----------
+*.tsbuildinfo
+.tsbuildinfo
+
+# Database
+# --------
+*.sqlite
+*.sqlite3
+*.db
+*.db-journal
+
+# Sensitive Files
+# ---------------
+# Firebase
+firebase-service-account.json
+firebase-adminsdk-*.json
+.firebase/
+
+# API Keys and Secrets
+secrets/
+.secrets/
+*.key
+*.pem
+*.cert
+*.crt
+*.p12
+
+# Backup files
+# ------------
+*.bak
+*.backup
+*.old
+*.orig
+*.tmp
+
+# Temporary files
+# ---------------
+tmp/
+temp/
+*.cache
+
+# Documentation
+# -------------
+# Don't ignore README.md, but ignore generated docs
+# docs/generated/
+
+# Miscellaneous
+# -------------
+.next/
+.nuxt/
+.cache/
+.parcel-cache/
+.serverless/
+.fusebox/
+.dynamodb/
+.tern-port
+.vuepress/dist
+.temp
+.docusaurus
+
+# Optional directories
+uploads/
+downloads/

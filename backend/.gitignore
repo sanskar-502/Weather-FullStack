@@ -1,0 +1,129 @@
+# ============================================
+# Backend .gitignore
+# ============================================
+
+# Dependencies
+# ------------
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+package-lock.json
+yarn.lock
+pnpm-lock.yaml
+
+# Environment Variables (CRITICAL - DO NOT COMMIT)
+# -------------------------------------------------
+.env
+.env.local
+.env.development
+.env.test
+.env.production
+.env.*.local
+
+# Firebase Credentials (CRITICAL - DO NOT COMMIT)
+# ------------------------------------------------
+firebase-service-account.json
+firebase-adminsdk-*.json
+serviceAccountKey.json
+.firebase/
+
+# Logs
+# ----
+logs/
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+lerna-debug.log*
+combined.log
+error.log
+access.log
+exceptions.log
+
+# Runtime Data
+# ------------
+pids/
+*.pid
+*.seed
+*.pid.lock
+
+# Coverage & Testing
+# ------------------
+coverage/
+*.lcov
+.nyc_output/
+test-results/
+.jest/
+
+# Build & Distribution
+# --------------------
+dist/
+build/
+out/
+*.js.map
+
+# Uploaded Files
+# --------------
+uploads/
+public/uploads/
+temp/
+tmp/
+
+# Database Files
+# --------------
+*.sqlite
+*.sqlite3
+*.db
+*.db-journal
+data/
+
+# Cache
+# -----
+.cache/
+.eslintcache
+.node_repl_history
+.npm/
+
+# PM2 Process Manager
+# -------------------
+.pm2/
+pm2.log
+pm2-error.log
+ecosystem.config.js
+
+# Docker (if used)
+# ----------------
+.dockerignore
+docker-compose.override.yml
+
+# IDE
+# ---
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS Files
+# --------
+.DS_Store
+Thumbs.db
+
+# API Documentation (if auto-generated)
+# --------------------------------------
+# api-docs/
+
+# Redis Dump
+# ----------
+dump.rdb
+
+# MongoDB Data (if local)
+# -----------------------
+mongo-data/
+mongodb-data/
+
+# Backup Files
+# ------------
+*.bak
+*.backup
+*.old
