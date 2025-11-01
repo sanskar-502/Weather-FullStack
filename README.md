@@ -454,7 +454,7 @@ Built with ❤️ by Sanskar Dubey
 
 For issues and questions:
 - Open an issue on GitHub
-- Contact: [your-email@example.com]
+- Contact: sanskardubey502@gmail.com
 
 ---
 
