@@ -102,7 +102,7 @@ A modern, full-stack weather application providing real-time weather data, forec
 
 #### 1. Clone the Repository
 ```bash
-git clone <repository-url>
+git clone https://github.com/sanskar-502/Weather-FullStack.git
 cd Weather-App
 ```
 
