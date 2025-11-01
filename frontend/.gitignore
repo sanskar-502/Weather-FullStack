@@ -136,7 +136,7 @@ out/
 # Gatsby (if using)
 # -----------------
 .cache/
-public/
+# public/ - commented out for React (only for Gatsby)
 
 # Vite (if migrating)
 # -------------------
